@@ -1,0 +1,159 @@
+using System;
+
+namespace Lab03_Search
+{
+    internal class Program
+    {
+        public static void Main(string[] args)
+        {
+            //Generamos la lista de números en donde se va a buscar
+            int[] listaDeNumeros = new int[100];
+            Random random = new Random();
+            for (int i = 0; i < listaDeNumeros.Length; i++)
+            {
+                listaDeNumeros[i] = random.Next(1, 200);
+            }
+
+            Console.WriteLine("Lista de números:    ");
+            EscribirArray(listaDeNumeros);
+
+            //Generamos la lista de números a buscar
+            int[] numerosABuscar = new int[50];
+            for (int i = 0; i < numerosABuscar.Length; i++)
+            {
+                numerosABuscar[i] = random.Next(1, 200);
+            }
+
+            Console.WriteLine("\nLista de números a buscar:    ");
+            EscribirArray(numerosABuscar);
+            BusquedaSecuancial(listaDeNumeros, numerosABuscar);
+            /*
+            int[]A = {-8, 4, 5, 9, 12, 18, 25, 40, 60, 7, 10, 79, 81, 82, 99, 95, 92, 13, 15, 17, 19};
+            int n = A.Length;
+            Console.WriteLine("Arreglo desordenado: ");
+            Console.Write("Número:   ");
+            for (int i = 0; i < A.Length; i++)
+            {
+                Console.Write(A[i] + "\t");
+            }
+            Console.Write("\n");
+            Console.Write("Posición: ");
+            for (int i = 0; i < A.Length; i++)
+            {
+                Console.Write(i + "\t");
+            }
+            Console.WriteLine("\nIngrese el número a buscar:");
+            Stopwatch timeMeasure = new Stopwatch();
+            timeMeasure.Start();
+            int clave = Convert.ToInt32(Console.ReadLine());
+            int posicionEncontrada = BusquedaBinaria(A, n, clave);
+            Console.WriteLine("\nSe realizará una búsqueda binaria...");
+            Console.WriteLine("Elemento encontrado en posla icion: " + posicionEncontrada);
+            Console.WriteLine("Hora de fin de la ejecución: " + DateTime.Now.ToString("h:mm:ss tt"));
+            Console.WriteLine();
+            timeMeasure.Stop();
+            Console.WriteLine($"Tiempo empleado: {timeMeasure.Elapsed.TotalMilliseconds} ms");
+
+            Console.WriteLine("Hora de inicio de ejecución: " + DateTime.Now.ToString("h:mm:ss tt"));
+            int[] A = { 79, 21, 15, 99, 88, 65, 75, 85, 76, 46, 84, 24, 15, 18, 59, 78, 11, 41, 83, 74, 99 };
+            int n = A.Length;
+            Console.WriteLine("Arreglo desordenado: ");
+            Console.Write("Número:   ");
+            for (int i = 0; i < A.Length; i++)
+            {
+                Console.Write(A[i] + "\t");
+            }
+            Console.Write("\n");
+            Console.Write("Posición: ");
+            for (int i = 0; i < A.Length; i++)
+            {
+                Console.Write(i + "\t");
+            }
+            Console.WriteLine("\nIngrese el número a buscar:");
+            Stopwatch timeMeasure = new Stopwatch();
+            timeMeasure.Start();
+            int clave = Convert.ToInt32(Console.ReadLine());
+            int posicionEncontrada = BusquedaLinealid(A, n, clave);
+            Console.WriteLine("\nSe realizará una búsqueda secuencial lineal...");
+            Console.WriteLine("Elemento encontrado en posla icion: " + posicionEncontrada);
+            Console.WriteLine("Hora de fin de la ejecución: " + DateTime.Now.ToString("h:mm:ss tt"));
+            Console.WriteLine();
+            timeMeasure.Stop();
+            Console.WriteLine($"Tiempo empleado: {timeMeasure.Elapsed.TotalMilliseconds} ms");
+        }
+        
+        private static int BusquedaBinaria(int[] lista, int n, int clave)
+        {
+            int bajo = 0, alto = n - 1, central = 0;
+            bool encontrado = false;
+            while ((bajo <= alto) && (!encontrado))
+            {
+                central = (bajo + alto) / 2;
+                if (lista[central] == clave)
+                    encontrado = true;             
+                else if (clave < lista[central])
+                    alto = central - 1;
+                else  
+                    bajo = central + 1;
+            }
+            return encontrado ? central : -1;
+
+        }
+
+
+        private static int BusquedaLinealid(int[] A, int n, int clave)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                if (A[i] == clave)
+                    return i;
+            }
+
+            return -1;
+        }*/
+        }
+
+        private static void EscribirArray(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write(array[i] + " ");
+            }
+        }
+
+        private static void BusquedaSecuancial(int[] lista, int[] numABuscar)
+        {
+            int exito = -1, fallo = -1;
+            for (int i = 0; i < numABuscar.Length; i++)
+            {
+                for (int j = 0; j < lista.Length; j++)
+                {
+                    if (numABuscar[i] == lista[j])
+                    {
+                        exito++;
+                    }
+                    else
+                    {
+                        fallo++;
+                    }
+                }
+            }
+
+            int totalComparaciones = fallo + exito;
+            double porcentajeAciertos = 100 * exito / totalComparaciones;
+            double porcentajeFallos = 100 * fallo / totalComparaciones;
+            Console.Write("\n");
+            Console.WriteLine("Número de aciertos: " + exito + "\tPorcentaje de aciertos: " +
+                              porcentajeAciertos + "%");
+            Console.Write("\n");
+            Console.WriteLine("Número de fallos: " + fallo + "\tPorcentaje de fallos: " +
+                              porcentajeFallos + "%");
+            Array.Sort(lista);
+            Console.WriteLine("\nLista ordenada");
+            for (int i = 0; i < lista.Length; i++)
+            {
+                Console.Write(lista[i] + " ");
+            }
+        }
+    }
+}
